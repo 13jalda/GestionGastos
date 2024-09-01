@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import {Router} from 'express';
+const router = Router();
 
-const mysqlConnection = require("../database");
+import mysqlConnection from "../database.js";
 
 router.get('/ingresos/:id', (req, res) =>{
     const { id } = req.params;
@@ -32,6 +32,29 @@ router.get('/ingresos/', (req, res) =>{
                     WHERE i.id_usuario_ingreso = ?`;
 
     mysqlConnection.query (query, [id_user], (err, rows, fields) =>{
+        if(!err){
+            res.json(rows);
+            /*res.status(200).json(res);*/
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+
+router.get('/ingresoscategoria/:id', (req, res) =>{
+    const { id } = req.params;
+    const id_user = req.body.id_user;
+    console.log (req.body);
+    const query =`SELECT i.id_ingreso, i.fecha_ingreso, i.importe_ingreso, sc.nombre_subcategoria, c.nombre_categoria
+                    FROM ingresos i
+                    JOIN subcategorias sc
+                    ON i.id_subcat_ingreso = sc.id_subcategoria
+                    JOIN categorias c
+                    ON c.id_categoria = sc.id_categoria_subcat
+                    WHERE i.id_usuario_ingreso = ? AND c.id_categoria = ?`;
+
+    mysqlConnection.query (query, [id_user, id], (err, rows, fields) =>{
         if(!err){
             res.json(rows);
             /*res.status(200).json(res);*/
@@ -78,4 +101,4 @@ router.delete('/ingresos/:id', (req, res) =>{
 });
 
 
-module.exports = router;
+export default router;

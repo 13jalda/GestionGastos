@@ -2,15 +2,17 @@
   "name": "api-server-mysql",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "Jon Alda <j.aldacarro@gmail.com> (https://www.myhomepage.com/)",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
-    "mysql": "^2.18.1"
+    "mysql2": "^3.11.0"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",

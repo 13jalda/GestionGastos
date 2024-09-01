@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import {Router} from 'express';
+const router = Router();
 
-const mysqlConnection = require("../database");
+import mysqlConnection from "../database.js";
 
 router.get('/categorias/:id', (req, res) =>{
     const { id }= req.params;
@@ -10,7 +10,7 @@ router.get('/categorias/:id', (req, res) =>{
             /*res.json(rows[0]);*/
             res.status(200).json(rows[0]);
         }else{
-            console.log(err);
+            console.log(err);   
         }
     });
 });
@@ -55,4 +55,4 @@ router.delete('/categorias/:id', (req, res) =>{
 });
 
 
-module.exports = router;
+export default router;

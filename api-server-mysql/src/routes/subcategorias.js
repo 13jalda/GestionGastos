@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import {Router} from 'express';
+const router = Router();
 
-const mysqlConnection = require("../database");
+import mysqlConnection from "../database.js";
 
 router.get('/subcategorias/:id', (req, res) =>{
     const { id }= req.params;
@@ -56,4 +56,4 @@ router.delete('/subcategorias/:id', (req, res) =>{
 });
 
 
-module.exports = router;
+export default router;

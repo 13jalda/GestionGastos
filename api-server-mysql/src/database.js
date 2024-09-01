@@ -1,17 +1,20 @@
-const dotenv = require("dotenv");
+/*const dotenv = require("dotenv");
 dotenv.config();
+import dotenv from 'dotenv';
+dotenv.config();*/
+import {DBHOST, DBUSER, DBPASS, DBNAME, DBPORT} from './config.js'
 
-const mysql = require('mysql');
+import mysql from 'mysql2';
 
-const mysqlConnection = mysql.createConnection({
-    host:process.env.DBHOST,
-    user: process.env.DBUSER,
-    password: process.env.DBPASS,
-    database: process.env.DBNAME
-    //multipleStatements: true
+const mysqlConnection = mysql.createPool({
+    host: DBHOST,
+    user: DBUSER,
+    password: DBPASS,
+    database: DBNAME,
+    port: DBPORT
 });
 
-
+/*
 mysqlConnection.connect(function (err){
     if (err){
         console.log(err);
@@ -19,6 +22,6 @@ mysqlConnection.connect(function (err){
     }else{
         console.log('DB is connected');
     }
-});
+});*/
 
-module.exports = mysqlConnection;
+export default mysqlConnection;

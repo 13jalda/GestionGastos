@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
+import {Router} from 'express';
+const router = Router();
 
-const mysqlConnection = require("../database");
+import mysqlConnection from "../database.js";
 
 router.get('/gastos/:id', (req, res) =>{
     const { id } = req.params;
@@ -41,13 +41,44 @@ router.get('/gastos/', (req, res) =>{
     });
 });
 
+
+router.get('/gastoscategoria/:id', (req, res) =>{
+    const { id } = req.params;
+    const id_user = req.body.id_user;
+    console.log (req.body);
+    const query =`SELECT g.id_gasto, g.fecha_gasto, g.importe_gasto, sc.nombre_subcategoria, c.nombre_categoria
+                    FROM gastos g
+                    JOIN subcategorias sc
+                    ON g.id_subcat_gasto = sc.id_subcategoria
+                    JOIN categorias c
+                    ON c.id_categoria = sc.id_categoria_subcat
+                    WHERE g.id_usuario_gasto = ? AND c.id_categoria = ?`;
+
+    mysqlConnection.query (query, [id_user, id], (err, rows, fields) =>{
+        if(!err){
+            res.json(rows);
+            /*res.status(200).json(res);*/
+        }else{
+            console.log(err);
+        }
+    });
+});
+
+
 router.post('/gastos/', (req, res) =>{
+    let fecha = req.body.fecha;
     const importe = req.body.importe_gasto;
     const id_subcat = req.body.id_subcategoria;
     const id_user = req.body.id_user;
+
+    if (fecha === ""){
+        fecha = new Date();
+        /*fecha = "CURDATE()";*/
+    }
+
     const query =`INSERT INTO gastos (fecha_gasto, importe_gasto, id_subcat_gasto, id_usuario_gasto) 
-                    VALUES (CURDATE(),?,?,?)`;
-    mysqlConnection.query (query,[importe,id_subcat,id_user],(err, rows, fields) =>{        
+                    VALUES (?,?,?,?)`;
+    mysqlConnection.query (query,[fecha,importe,id_subcat,id_user],(err, rows, fields) =>{        
         if(!err){
             res.json({Status: "Gasto añadido"});
             /*res.status(201).json({"Gasto Creado":res.affectedRows});*/
@@ -71,4 +102,4 @@ router.delete('/gastos/:id', (req, res) =>{
 });
 
 
-module.exports = router;
+export default router;
