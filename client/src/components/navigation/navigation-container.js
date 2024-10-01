@@ -1,6 +1,8 @@
-import axios from "axios";
+import React from "react";
 import { withRouter } from "react-router";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+
 
 const NavigationComponent = props => {
   const dynamicLink = (route, linkText) => {
@@ -38,7 +40,7 @@ const NavigationComponent = props => {
         </div>
 
         <div className="nav-link-wrapper">
-          <NavLink to="/about-me" activeClassName="nav-link-active">
+          <NavLink to="/about" activeClassName="nav-link-active">
             About
           </NavLink>
         </div>

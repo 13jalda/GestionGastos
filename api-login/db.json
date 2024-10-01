@@ -1,0 +1,19 @@
+{
+  "users":[
+      {
+        "id": "1",
+        "apellido": "Alda",
+        "nombre": "Jon",  
+        "username": "admin",
+        "paswword": "b4f82e540b8ad57334ded4c0e01fd060"
+      },
+
+      {
+        "id": "2",
+        "apellido": "Admin",
+        "nombre": "Sr.",  
+        "username": "admin2",
+        "paswword": "e10adc3949ba59abbe56e057f20f883e"
+      }
+  ]
+}

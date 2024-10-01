@@ -7,6 +7,12 @@ module.exports = {
     vendor: './src/vendor.js',
   },
 
+  /*output: {
+    filename: '[name].[hash].js',
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/',
+  },*/
+
   resolve: {
     extensions: ['.js', '.scss'],
 
